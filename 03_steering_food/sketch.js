@@ -1,17 +1,16 @@
-var vehicules = [];
-var dead_vehicules = [];
-var NO_FORCE;
+let vehicules = [];
+let dead_vehicules = [];
+let NO_FORCE;
 const MAX = 50;
+let foods = [];
+let poisons = [];
 
-var foods = [];
-var poisons = [];
-
-var generation = 0;
+let generation = 0;
 
 function preload() {}
 
 function setup() {
-  canvas = createCanvas(800, 600);
+  canvas = createCanvas(400, 300);
   canvas.parent("sketch");
   background(0);
   noStroke();
@@ -19,10 +18,10 @@ function setup() {
 
   NO_FORCE = createVector(0, 0);
 
-  for (var i = 0; i < MAX; i++) {
+  for (let i = 0; i < MAX; i++) {
     vehicules.push(new Vehicule(random(width), random(height)));
   }
-  for (var i = 0; i < MAX; i++) {
+  for (let i = 0; i < MAX; i++) {
     foods.push(createVector(random(width), random(height)));
     poisons.push(createVector(random(width), random(height)));
   }
@@ -39,14 +38,10 @@ function draw() {
   text("gen: " + generation, 10, 50);
   stroke(color("#8BC34A"));
   strokeWeight(4);
-  foods.forEach(function(food) {
-    point(food.x, food.y);
-  }, this);
+  foods.forEach(food => point(food.x, food.y));
   stroke(color("#f44336"));
   strokeWeight(8);
-  poisons.forEach(function(poison) {
-    point(poison.x, poison.y);
-  }, this);
+  poisons.forEach(poison => point(poison.x, poison.y));
   // handle vehicule
   for (let i = vehicules.length - 1; i >= 0; i--) {
     let vehicule = vehicules[i];
@@ -73,7 +68,7 @@ function draw() {
     next_gen();
   }
   //pop up food ?
-  if (random() < 0.02) {
+  if (random() < 0.05) {
     foods.push(createVector(random(width), random(height)));
   }
 }
@@ -82,7 +77,7 @@ function next_gen() {
   generation += 1;
   background(51);
 
-  let best_individual = dead_vehicules[dead_vehicules.length - 1];
+  const best_individual = dead_vehicules[dead_vehicules.length - 1];
   console.log("max age: " + best_individual.age);
   console.log("Best DNA: " + best_individual.dna);
   // breed along the age
@@ -90,7 +85,7 @@ function next_gen() {
   dead_vehicules.splice(0, dead_vehicules.length / 2);
 
   let breeders = [];
-  for (var i = 0; i < dead_vehicules.length; i++) {
+  for (let i = 0; i < dead_vehicules.length; i++) {
     if (dead_vehicules[i].age != 100) {
       breeders.push(dead_vehicules[i]);
     }
@@ -100,17 +95,17 @@ function next_gen() {
   if (breeders.length == 0) {
     // total failure --- restart DNA from scratch
     console.log("Total evolution failure - restart from the begining");
-    for (var i = 0; i < MAX; i++) {
+    for (let i = 0; i < MAX; i++) {
       vehicules.push(new Vehicule(random(width), random(height)));
     }
   } else {
     while (vehicules.length < MAX) {
-      let father_index = round(random(0, breeders.length - 1));
-      let mother_index = round(random(0, breeders.length - 1));
-      let father = breeders[father_index];
-      let mother = breeders[mother_index];
-      let child1 = father.breed(mother);
-      let child2 = father.breed(mother);
+      const father_index = round(random(0, breeders.length - 1));
+      const mother_index = round(random(0, breeders.length - 1));
+      const father = breeders[father_index];
+      const mother = breeders[mother_index];
+      const child1 = father.breed(mother);
+      const child2 = father.breed(mother);
       vehicules.push(child1);
       vehicules.push(child2);
     }
