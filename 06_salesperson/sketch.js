@@ -28,3 +28,5 @@ function draw() {
     text(round(city.x) + ":" + round(city.y), city.x, city.y)
   );
 }
+
+function nextOrder(order) {}
