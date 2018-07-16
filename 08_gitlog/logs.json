@@ -1,0 +1,28 @@
+{
+  "logs": [
+    {
+      "date": 1511156158,
+      "author": "Zesk06",
+      "changes": [
+        {
+          "mod": "A",
+          "file": "06_salesperson/index.html"
+        },
+        {
+          "mod": "A",
+          "file": "06_salesperson/sketch.html"
+        }
+      ]
+    },
+    {
+      "date": 1511156159,
+      "author": "Toto",
+      "changes": [
+        {
+          "mod": "A",
+          "file": "06_salesperson/toto.html"
+        }
+      ]
+    }
+  ]
+}
